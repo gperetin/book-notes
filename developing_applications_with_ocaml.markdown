@@ -7,6 +7,7 @@ Available online for free [here](http://caml.inria.fr/pub/docs/oreilly-book/pdf/
 
 ## BASICS
 * there are 3 different types of declarations
+
 ** value declaration : let
 ** exception declaration : exception
 ** type declaration : type
