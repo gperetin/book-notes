@@ -1,4 +1,4 @@
-**Developing Application with Objective Caml**
+# Developing Application with Objective Caml
 
 Available online for free [here](http://caml.inria.fr/pub/docs/oreilly-book/pdf/index.html)
 
