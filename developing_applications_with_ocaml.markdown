@@ -95,3 +95,81 @@ Available online for free [here](http://caml.inria.fr/pub/docs/oreilly-book/pdf/
 
 * = is structural equality (compares values)
 * == is physical equality (compares memory addresses)
+
+
+# Chapter 3: Imperative programming
+
+
+## MODIFIABLE DATA STRUCTURES
+* vectors (Arrays)
+* strings
+* records with mutable fields
+* references
+
+
+### VECTORS
+* one dimensional array
+* collect a known number of elements of the same type
+* `# let v = [| 3.14; 6.28; 9.42 |] ;;`
+* `# v.(1)`
+* `# v.(0) <- 100.`
+* Array module in standard library
+
+* **Atomic values** - values whose size does not exceed the standard
+size of OCaml values (one memory word are)
+  * integers, characters, booleans and constant constructors
+
+* **Structured values** - are represented by a pointer into memory area
+  * vectors of floats are a special case - creation of vector of floats causes
+  initial value to be copied (even though vectors are structured)
+
+
+### STRINGS
+* `let s = "hello";;`
+* `s.[2] <- 'r';;`
+
+
+### MUTABLE FIELDS OF RECORDS
+* `# type point = { mutable xc : float; mutable yc : float } ;;`
+* use mutable keyword to mark field in a record mutable
+* `# let p = { xc = 1.0; yc = 0.0 } ;;`
+* `# p.xc <- 3.0;;`
+
+
+### REFERENCES
+* can be seen as the type of a pointer to any value
+* it's basically a record with one mutable field contents
+* `# let x = ref 3;;`
+* `# !x (get the value of a ref)`
+* `# x := 4;;`
+
+* weak type variables: `val x : ’_a list ref = {contents=[]}`
+* `'_a` is unknown type awaiting instantiation
+
+
+## INPUT-OUTPUT
+* IO functions often return `unit` type
+* predefined types: `in_channel` and `out_channel`
+* `open_in` and `open_out`, function for opening channels
+* `close_in` and `close_out`, for closing
+* `input_line ic` - reads a line from ic channel
+    ```
+    # let () = print_string "and one, " in
+        print_string "zero";;
+    ```
+
+
+## IMPERATIVE CONTROL STRUCTURES
+
+### SEQUENCE
+* left to right evaluation of a sequence of expressions separated by ;
+* `expr1 ; .... ; exprn`
+* `print_string "test"; 1+1;;`
+* use function `ignore` to ignore value of any expressions in a sequence
+* sequences can be delimited by ( ) or begin/end blocks
+
+### LOOPS
+* for loop for a bounded iteration
+* while loop for non-bounded iteration
+* `# for i=1 to 10 do print int i; print string " " done; print newline() ;;`
+
