@@ -173,3 +173,38 @@ size of OCaml values (one memory word are)
 * while loop for non-bounded iteration
 * `# for i=1 to 10 do print int i; print string " " done; print newline() ;;`
 
+
+# Chapter 18: Communucation and Processes
+
+* errors produced by system calls throw Unix_error exceptions
+* Unix.handle_unix_error - wraps function call and handles error
+* open file or create it if it doesn't exist
+    `let file = Unix.openfile "test.dat" [Unix.O_RDWR; Unix.O_CREAT] 0o644 ;;`
+    or (if using JS Core stdlib)
+    `let file = Unix.openfile "test.dat" ~mode:[Unix.O_RDWR; Unix.O_CREAT]
+    ~perm:0o644 ;;`
+* conversion functions between file descriptors and `in_channel`/`out_channel`
+  from `Pervasives`
+    `Unix.in_channel of descr ;;`
+    `Unix.descr of in_channel ;;`
+
+## Processes
+* exit the program with `Pervasives.exit`
+* to create a process, use `Unix.create_process`
+* spawn a subprocess and wait for it to finish: `Sys.command` or `Unix.system`
+* `Unix.fork` to fork off current process
+* `Unix.wait` wait for child to finish
+
+## Communication Between Processes
+* pipes
+  * `let output, input = Unix.pipe();;` create a pipe and get both ends
+  * named pipe - `Unix.mkfifo;;`
+* communication channels
+  * `Unix.open_process` - takes a string (path which will be executed by
+  `/bin/sh` and returns a pair STDIN, STDOUT
+  * `Unix.close_process (in, out);;` - closes previously opened process
+* signals
+  * module `Sys` contains POSIX signals, module `Unix` has `kill` command
+  * `Unix.kill <PID> <SIGNAL>`;;
+  * redefine signal handling `Sys.set_signal <SIGNAL> <HANDLER>;;`
+
