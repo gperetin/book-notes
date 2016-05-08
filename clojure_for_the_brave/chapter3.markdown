@@ -107,5 +107,20 @@ remove duplicates
 ** eg. `(#(* % 3) 8)` - `%` is a placeholder for an argument
 * functions returned from other functions are closures - they have access to
   the scope where they were defined
+* `let`
+** binds names to values and introduces a new (local) scope
+** can reference global scope: `(let [x (inc x)] x)`
+** `let` allows us to name things, and allows to evaluate expression only once
+and reuse the result (important on expensive API calls or side-effects)
+* `loop` a handy way to do recursion
+```clojure
+(loop [iteration 0]
+  (println (str "Iteration " iteration))
+  (if (> iteration 3)
+    (println "Goodbye!")
+    (recur (inc iteration))))
+```
+* parameters to `loop` are bindings (4 parameters in `[]` means 2 bindings)
+* regular expressions: `#"regex"`
 
 ## Sample program
